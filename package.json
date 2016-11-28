@@ -1,0 +1,37 @@
+{
+  "name": "mikumo_stamp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "NODE_ENV=development nodemon --inspect --harmony-async-await ./server.js --ignore public --ignore client",
+    "build": "harp compile client/src public && uglifyjs -c -o ./public/js/app.min.js ./public/js/app.js",
+    "release-build": "NODE_ENV=production npm run build",
+    "start": "NODE_ENV=production node --harmony-async-await ./server.js",
+    "docker": "nf start"
+  },
+  "author": "ABCanG <abcang1015@gmail.com> (https://abcang.net/)",
+  "license": "MIT",
+  "dependencies": {
+    "eslint-plugin-jsx-a11y": "~2.2.3",
+    "foreman": "~2.0.0",
+    "harp": "~0.23.0",
+    "ioredis": "~2.4.0",
+    "koa": "~2.0.0",
+    "koa-connect": "github:vkurchatkin/koa-connect",
+    "koa-static": "~2.0.0",
+    "socket.io": "~1.7.0",
+    "uglify-js": "~2.7.4",
+    "vue-strap": "github:yuche/vue-strap#v2"
+  },
+  "devDependencies": {
+    "eslint": "^3.11.0",
+    "eslint-config-airbnb": "^13.0.0",
+    "eslint-config-airbnb-base": "^10.0.1",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^2.2.3",
+    "eslint-plugin-react": "^6.7.1",
+    "nodemon": "~1.11.0"
+  }
+}
