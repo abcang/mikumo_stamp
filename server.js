@@ -86,8 +86,7 @@ io.on('connection', async (socket) => {
       const views = socket.client.conn.server.clientsCount - 1;
       const date = new Date();
       const time = parseInt(date / 1000, 10);
-      const timeText = date.toString().match(/\d+:\d+/)[0];
-      const output = {type, num, id, userId, time, timeText};
+      const output = {type, num, id, userId, time};
       redis.multi()
         .rpush('stamps', JSON.stringify(output))
         .hset('views', id, views)

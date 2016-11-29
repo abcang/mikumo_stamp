@@ -64,6 +64,11 @@
     tick();
   }
 
+  function convertData(data) {
+    data.timeText = (new Date(data.time * 1000)).toString().match(/\d+:\d+/)[0];
+    return data;
+  }
+
   var socket = io('?userId=' + ((window.localStorage && window.localStorage.getItem('userId')) || 0));
 
   var vm = new Vue({
@@ -97,7 +102,9 @@
       },
       changeType: function(type, event) {
         if (!this.visible) {
+          // 表示
           this.visible = true;
+          document.querySelector('.stamp-box').scrollTop = 0;
 
           // ボックスを開く時に下にフィット
           var timeline = document.querySelector('.timeline');
@@ -108,7 +115,11 @@
             scrollTo(timeline, { offset: (timeline.scrollHeight + stampBoxHeight), time: 0.5 });
           }
         } else if (this.type === type) {
+          // 非表示
           this.visible = false;
+        } else {
+          // 表示切り替え
+          document.querySelector('.stamp-box').scrollTop = 0;
         }
         this.type = type;
         event.preventDefault();
@@ -155,7 +166,7 @@
     if (window.localStorage) {
       window.localStorage.setItem('userId', data.userId);
     }
-    vm.stamps = data.stamps;
+    vm.stamps = data.stamps.map(function(stamp) { return convertData(stamp); });
     vm.allCount = data.allCount;
     vm.stampInfo.anzu.count = data.stampInfo.anzu;
     vm.stampInfo.mikumo.count = data.stampInfo.mikumo;
@@ -170,7 +181,7 @@
   socket.on('stamp', function(data) {
     vm.allCount += 1;
     vm.stampInfo[data.type].count += 1;
-    vm.stamps.push(data);
+    vm.stamps.push(convertData(data));
   });
 
   socket.on('join', function() {
