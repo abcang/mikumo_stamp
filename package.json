@@ -14,7 +14,6 @@
   "author": "ABCanG <abcang1015@gmail.com> (https://abcang.net/)",
   "license": "MIT",
   "dependencies": {
-    "eslint-plugin-jsx-a11y": "~2.2.3",
     "foreman": "~2.0.0",
     "harp": "~0.23.0",
     "ioredis": "~2.4.0",
