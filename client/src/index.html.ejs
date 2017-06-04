@@ -95,9 +95,9 @@
 
               <div class="text-center">
                 <br>
-                <a href="https://twitter.com/share" class="twitter-share-button" data-size="large" data-hashtags="みくもスタンプ,マスコットアプリ文化祭">Tweet</a> <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script><br>
+                <a href="https://twitter.com/share" class="twitter-share-button" data-size="large" data-hashtags="みくもスタンプ,マスコットアプリ文化祭">Tweet</a><br>
                 <br>
-                © 2016 <a href="abcang.net" target="_blank">abcang.net</a>.<br>
+                © 2016 <a href="https://abcang.net" target="_blank">abcang.net</a>.<br>
                 <br>
                 画像: ©GMO Internet, Inc.<br>
                 画像の再利用は禁止です。
@@ -158,10 +158,11 @@
 
   <% const min = environment === 'production' ? '.min' : '' %>
   <script src="//cdnjs.cloudflare.com/ajax/libs/flexibility/2.0.1/flexibility.js" async></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/vue/2.1.0/vue<%= min %>.js" defer></script>
-  <script src="/js/vue-strap.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/vue/2.3.3/vue<%= min %>.js" defer></script>
+  <script src="/js/vue-strap<%= min %>.js" defer></script>
   <script src="/socket.io/socket.io.js" defer></script>
   <script src="/js/app<%= min %>.js" defer></script>
+  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
   <% if (public._data && public._data.analytics) { %>
     <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

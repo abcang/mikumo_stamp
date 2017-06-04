@@ -15,14 +15,13 @@
   "license": "MIT",
   "dependencies": {
     "foreman": "~2.0.0",
-    "harp": "~0.23.0",
-    "ioredis": "~2.4.0",
-    "koa": "~2.0.0",
+    "harp": "~0.24.0",
+    "ioredis": "~3.1.1",
+    "koa": "~2.2.0",
     "koa-connect": "~2.0.0",
-    "koa-static": "~2.0.0",
-    "socket.io": "~1.7.0",
-    "uglify-js": "~2.7.4",
-    "vue-strap": "github:yuche/vue-strap#v2"
+    "koa-static": "~3.0.0",
+    "socket.io": "~2.0.2",
+    "uglify-js": "^2.7.5"
   },
   "devDependencies": {
     "eslint": "^3.11.0",
