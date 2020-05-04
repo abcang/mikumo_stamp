@@ -4,33 +4,29 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "NODE_ENV=development nodemon --inspect ./server.js --ignore public --ignore client",
     "build": "harp compile client/src public && uglifyjs -c -o ./public/js/app.min.js ./public/js/app.js",
     "release-build": "NODE_ENV=production npm run build",
     "start": "NODE_ENV=production node ./server.js",
-    "docker": "nf start"
+    "lint": "eslint server.js client/**/*.js",
+    "lint:fix": "eslint server.js client/**/*.js --fix"
   },
-  "author": "ABCanG <abcang1015@gmail.com> (https://abcang.net/)",
+  "author": "abcang <abcang1015@gmail.com> (https://abcang.net/)",
   "license": "MIT",
   "dependencies": {
-    "foreman": "~2.0.0",
-    "harp": "~0.24.0",
-    "ioredis": "~3.1.1",
-    "koa": "~2.2.0",
-    "koa-connect": "~2.0.0",
-    "koa-static": "~3.0.0",
-    "socket.io": "~2.0.2",
-    "uglify-js": "^2.7.5"
+    "harp": "^0.32.0",
+    "ioredis": "^4.16.3",
+    "koa": "^2.11.0",
+    "koa-connect": "^2.0.1",
+    "koa-static": "^5.0.0",
+    "socket.io": "^2.3.0",
+    "uglify-js": "^3.9.2"
   },
   "devDependencies": {
-    "eslint": "^3.11.0",
-    "eslint-config-airbnb": "^13.0.0",
-    "eslint-config-airbnb-base": "^10.0.1",
-    "eslint-plugin-import": "^2.2.0",
-    "eslint-plugin-jsx-a11y": "^2.2.3",
-    "eslint-plugin-react": "^6.7.1",
-    "nodemon": "~1.11.0"
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-plugin-import": "^2.20.2",
+    "nodemon": "^2.0.3"
   },
   "repository": "git@github.com:ABCanG/mikumo_stamp.git"
 }

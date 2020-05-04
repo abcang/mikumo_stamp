@@ -1,3 +1,5 @@
+'use strict';
+
 (function() {
   function Stamp(name, max) {
     this.name = name;
@@ -10,23 +12,23 @@
   };
 
   var requestAnimFrame = (function() {
-    return window.requestAnimationFrame ||
-    window.webkitRequestAnimationFrame ||
-    window.mozRequestAnimationFrame ||
-    function(callback) {
+    return window.requestAnimationFrame
+    || window.webkitRequestAnimationFrame
+    || window.mozRequestAnimationFrame
+    || function(callback) {
       setTimeout(callback, 1000 / 60);
     };
-  })();
+  }());
 
   function scrollTo(container, option, cb) {
     var scrollY = container.scrollTop;
-    var scrollTargetY = option.offset ||
-      (option.ele && ((option.ele.offsetTop + option.ele.offsetHeight) - container.offsetHeight)) ||
-      0;
+    var scrollTargetY = option.offset
+      || (option.ele && ((option.ele.offsetTop + option.ele.offsetHeight) - container.offsetHeight))
+      || 0;
     var currentTime = 0;
 
-    var time = option.time ||
-      Math.max(0.1, Math.min(Math.abs(scrollY - scrollTargetY) / option.speed, 0.8));
+    var time = option.time
+      || Math.max(0.1, Math.min(Math.abs(scrollY - scrollTargetY) / option.speed, 0.8));
 
     var easingEquations = {
       easeOutSine: function(pos) {
@@ -73,11 +75,6 @@
 
   var vm = new Vue({
     el: '#chat',
-    components: {
-      buttonGroup: VueStrap.buttonGroup,
-      progressbar: VueStrap.progressbar,
-      modal: VueStrap.modal
-    },
     data: {
       userId: null,
       stamps: [],
@@ -190,4 +187,4 @@
       return stamp;
     });
   });
-})();
+}());

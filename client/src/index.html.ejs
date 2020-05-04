@@ -37,7 +37,7 @@
             <button type="button" class="btn btn-default pull-left" @click="showCharacter = true">
               <span class="glyphicon glyphicon-question-sign"></span>
             </button>
-            <modal title="キャラクター紹介" :value="showCharacter" @cancel="showCharacter = false" effect="fade" width="800" cancel-text="閉じる" v-cloak>
+            <modal title="キャラクター紹介" v-model="showCharacter" append-to-body v-cloak>
               <div class="row" v-if="showCharacter">
                 <div class="col-xs-5 col-sm-4">
                   <div class="thumbnail">
@@ -74,6 +74,9 @@
                   <a href="https://mikumo.abcang.net/" class="btn btn-default" role="button" target="_blank">みくもファンクラブへGO</a>
                 </div>
               </div>
+              <div slot="footer">
+                <btn @click="showCharacter=false">閉じる</btn>
+              </div>
             </modal>
           </div>
           <div class="col-xs-8 col-sm-4 h3 text-center">みくもスタンプ</div>
@@ -81,7 +84,7 @@
             <button type="button" class="btn btn-default pull-right" @click="showInfo = true">
               <span class="glyphicon glyphicon-info-sign"></span>
             </button>
-            <modal title="みくもスタンプについて" :value="showInfo" @cancel="showInfo = false" effect="fade" width="800" cancel-text="閉じる" v-cloak>
+            <modal title="みくもスタンプについて" v-model="showInfo" append-to-body v-cloak>
               画像は<a href="https://www.conoha.jp/conohadocs/blog/10747" target="_blank">みくもTwitterスタンプ</a>からお借りしました。
               <a href="https://store.line.me/stickershop/product/1216105" target="_blank">LINEスタンプ</a>もぜひ利用しましょう。
 
@@ -101,6 +104,9 @@
                 <br>
                 画像: ©GMO Internet, Inc.<br>
                 画像の再利用は禁止です。
+              </div>
+              <div slot="footer">
+                <btn @click="showInfo=false">閉じる</btn>
               </div>
             </modal>
           </div>
@@ -148,18 +154,18 @@
           <span class="badge">{{stampInfo[target].count}}</span>
         </label>
       </div>
-      <div class="progress">
-        <progressbar :now="stampInfo['anzu'].score(allCount)" label type="primary"></progressbar>
-        <progressbar :now="stampInfo['mikumo'].score(allCount)" label type="success"></progressbar>
-        <progressbar :now="stampInfo['conoha'].score(allCount)" label type="warning"></progressbar>
-      </div>
+      <progress-bar class="progress">
+        <progress-bar-stack v-model="stampInfo['anzu'].score(allCount)" label type="primary"></progress-bar-stack>
+        <progress-bar-stack v-model="stampInfo['mikumo'].score(allCount)" label type="success"></progress-bar-stack>
+        <progress-bar-stack v-model="stampInfo['conoha'].score(allCount)" label type="warning"></progressbar>
+      </progress-bar>
     </div>
   </div>
 
   <% const min = environment === 'production' ? '.min' : '' %>
   <script src="//cdnjs.cloudflare.com/ajax/libs/flexibility/2.0.1/flexibility.js" async></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/vue/2.3.3/vue<%= min %>.js" defer></script>
-  <script src="/js/vue-strap<%= min %>.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue<%= min %>.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/uiv/0.34.4/uiv.min.js" defer></script>
   <script src="/socket.io/socket.io.js" defer></script>
   <script src="/js/app<%= min %>.js" defer></script>
   <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
