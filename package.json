@@ -14,7 +14,7 @@
   "author": "abcang <abcang1015@gmail.com> (https://abcang.net/)",
   "license": "MIT",
   "dependencies": {
-    "harp": "^0.32.0",
+    "harp": "^0.40.2",
     "ioredis": "^4.16.3",
     "koa": "^2.11.0",
     "koa-connect": "^2.0.1",
