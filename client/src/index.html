@@ -9,24 +9,28 @@
   <meta property="og:title" content="みくもスタンプ" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://stamp.mikumo.abcang.net/" />
-  <meta property="og:image" content="https://stamp.mikumo.abcang.net/ogp1200x630.png" />
-  <meta property="og:image" content="https://stamp.mikumo.abcang.net/ogp630x630.png" />
+  <meta property="og:image" content="./ogp1200x630.png" />
+  <meta property="og:image" content="./ogp630x630.png" />
   <meta property="og:site_name" content="みくもスタンプ" />
   <meta property="og:description" content="あんず＆このはのスタンプを試せるサイトです。お気に入りのスタンプをたくさん送信したり、スタンプだけを使った会話を楽しんだりしましょう。" />
   <meta name="twitter:card" content="summary">
 
-  <link rel="shortcut icon" href="/favicon.ico" type="image/vnd.microsoft.icon">
-  <link rel="icon" href="/favicon.ico" type="image/vnd.microsoft.icon">
-  <link rel="icon" type="image/png" href="/favicon-48x48.png" sizes="48x48">
-  <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
-  <link rel="icon" type="image/png" href="/favicon-160x160.png" sizes="96x96">
-  <link rel="icon" type="image/png" href="/favicon-196x196.png" sizes="96x96">
-  <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
-  <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+  <link rel="shortcut icon" href="./favicon.ico" type="image/vnd.microsoft.icon">
+  <link rel="icon" href="./favicon.ico" type="image/vnd.microsoft.icon">
+  <link rel="icon" type="image/png" href="./favicon-48x48.png" sizes="48x48">
+  <link rel="icon" type="image/png" href="./favicon-96x96.png" sizes="96x96">
+  <link rel="icon" type="image/png" href="./favicon-160x160.png" sizes="96x96">
+  <link rel="icon" type="image/png" href="./favicon-196x196.png" sizes="96x96">
+  <link rel="icon" type="image/png" href="./favicon-16x16.png" sizes="16x16">
+  <link rel="icon" type="image/png" href="./favicon-32x32.png" sizes="32x32">
 
-
-  <link href="/css/app.css" rel="stylesheet" type="text/css" />
+  <!-- <link href="/css/app.css" rel="stylesheet" type="text/css" /> -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/flexibility/2.0.1/flexibility.js" async></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/uiv/0.34.4/uiv.min.js" defer></script>
+  <script src="/socket.io/socket.io.js" defer></script>
 </head>
 <body>
   <div id="chat">
@@ -161,24 +165,5 @@
       </progress-bar>
     </div>
   </div>
-
-  <% const min = environment === 'production' ? '.min' : '' %>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/flexibility/2.0.1/flexibility.js" async></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue<%= min %>.js" defer></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/uiv/0.34.4/uiv.min.js" defer></script>
-  <script src="/socket.io/socket.io.js" defer></script>
-  <script src="/js/app<%= min %>.js" defer></script>
-  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-  <% if (public._data && public._data.analytics) { %>
-    <script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-    ga('create', '<%- public._data.analytics %>', 'auto');
-    ga('send', 'pageview');
-    </script>
-  <% } %>
 </body>
 </html>

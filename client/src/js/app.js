@@ -1,4 +1,4 @@
-'use strict';
+import "../css/app.sass"
 
 (function() {
   function Stamp(name, max) {

@@ -1,8 +1,6 @@
 const Koa = require('koa');
 const path = require('path');
 const serve = require('koa-static');
-const c2k = require('koa-connect');
-const harp = require('harp');
 const Redis = require('ioredis');
 
 const port = (process.env.REDIS_PORT && process.env.REDIS_PORT.includes(':')
@@ -24,8 +22,7 @@ if (process.env.NODE_ENV === 'production') {
   app.use(serve(path.resolve('./public')));
 } else {
   console.log('development mode'); // eslint-disable-line no-console
-  app.use(serve(path.resolve('./client/src')));
-  app.use(c2k(harp.mount(path.resolve('./client/src'))));
+  app.use(serve(path.resolve('./public')));
 }
 
 const server = app.listen(process.env.PORT || 3000);

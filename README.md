@@ -4,7 +4,7 @@
 [みくもスタンプ](https://stamp.mikumo.abcang.net)
 
 ## 必要な環境
-* Node.js v7以上
+* Node.js v16以上
 * redis
 
 ## 開発
@@ -27,16 +27,6 @@ dockerを使う場合
 ```bash
 $ docker build -t mikumo_stamp .
 $ docker run -it --rm -p 3000:80 --link redis:redis mikumo_stamp
-```
-
-## Google Analyticsの設定
-
-`client/src/_data.json`にファイルを作成
-
-```json
-{
-  "analytics": "UA-XXXX"
-}
 ```
 
 ## ライセンス
