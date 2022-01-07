@@ -26,7 +26,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 const server = app.listen(process.env.PORT || 3000);
-const io = require('socket.io').listen(server);
+const io = require('socket.io')(server);
 
 function checkData(data) {
   const { type, num } = data;
