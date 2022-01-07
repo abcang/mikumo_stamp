@@ -1,73 +1,76 @@
 import '../css/app.sass';
+import domready from 'domready';
 
-(function main() {
-  function Stamp(name, max) {
+class Stamp {
+  constructor(name, max) {
     this.name = name;
     this.max = max;
     this.count = 0;
   }
 
-  Stamp.prototype.score = function score(all) {
+  score(all) {
     return Math.floor((this.count * 10000) / (all || 1)) / 100;
-  };
+  }
+}
 
-  const requestAnimFrame = window.requestAnimationFrame
-    || window.webkitRequestAnimationFrame
-    || window.mozRequestAnimationFrame
-    || ((callback) => setTimeout(callback, 1000 / 60));
+const requestAnimFrame = window.requestAnimationFrame
+  || window.webkitRequestAnimationFrame
+  || window.mozRequestAnimationFrame
+  || ((callback) => setTimeout(callback, 1000 / 60));
 
-  function scrollTo(container, option, cb) {
-    const scrollY = container.scrollTop;
-    const scrollTargetY = option.offset
+function scrollTo(container, option, cb) {
+  const scrollY = container.scrollTop;
+  const scrollTargetY = option.offset
       || (option.ele && ((option.ele.offsetTop + option.ele.offsetHeight) - container.offsetHeight))
       || 0;
-    let currentTime = 0;
+  let currentTime = 0;
 
-    const time = option.time
+  const time = option.time
       || Math.max(0.1, Math.min(Math.abs(scrollY - scrollTargetY) / option.speed, 0.8));
 
-    const easingEquations = {
-      easeOutSine(pos) {
-        return Math.sin(pos * (Math.PI / 2));
-      },
-      easeInOutSine(pos) {
-        return (-0.5 * (Math.cos(Math.PI * pos) - 1));
-      },
-      easeInOutQuint(pos) {
-        const divPos = pos / 0.5;
-        if (divPos < 1) {
-          return 0.5 * divPos ** 5;
-        }
-        return 0.5 * ((divPos - 2) ** 5 + 2);
-      },
-    };
+  const easingEquations = {
+    easeOutSine(pos) {
+      return Math.sin(pos * (Math.PI / 2));
+    },
+    easeInOutSine(pos) {
+      return (-0.5 * (Math.cos(Math.PI * pos) - 1));
+    },
+    easeInOutQuint(pos) {
+      const divPos = pos / 0.5;
+      if (divPos < 1) {
+        return 0.5 * divPos ** 5;
+      }
+      return 0.5 * ((divPos - 2) ** 5 + 2);
+    },
+  };
 
-    function tick() {
-      currentTime += 1 / 60;
+  function tick() {
+    currentTime += 1 / 60;
 
-      const p = currentTime / time;
-      const t = easingEquations[option.easing || 'easeInOutSine'](p);
+    const p = currentTime / time;
+    const t = easingEquations[option.easing || 'easeInOutSine'](p);
 
-      if (p < 1) {
-        requestAnimFrame(tick);
-        container.scrollTop = scrollY + ((scrollTargetY - scrollY) * t);
-      } else {
-        container.scrollTop = scrollTargetY;
-        if (cb) {
-          cb();
-        }
+    if (p < 1) {
+      requestAnimFrame(tick);
+      container.scrollTop = scrollY + ((scrollTargetY - scrollY) * t);
+    } else {
+      container.scrollTop = scrollTargetY;
+      if (cb) {
+        cb();
       }
     }
-
-    tick();
   }
 
-  function convertData(data) {
-    // eslint-disable-next-line prefer-destructuring
-    data.timeText = (new Date(data.time * 1000)).toString().match(/\d+:\d+/)[0];
-    return data;
-  }
+  tick();
+}
 
+function convertData(data) {
+  // eslint-disable-next-line prefer-destructuring
+  data.timeText = (new Date(data.time * 1000)).toString().match(/\d+:\d+/)[0];
+  return data;
+}
+
+domready(() => {
   const socket = io(`?userId=${(window.localStorage && window.localStorage.getItem('userId')) || 0}`);
 
   const vm = new Vue({
@@ -184,4 +187,4 @@ import '../css/app.sass';
       return stamp;
     });
   });
-}());
+});
