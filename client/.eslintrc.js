@@ -1,19 +1,21 @@
 module.exports = {
-  "root": true,
-  "extends": [
-    'eslint:recommended',
-    'airbnb-base/legacy',
-  ],
-  "globals": {
-    "io": false,
-    "Vue": false,
-    "uiv": false,
+  root: true,
+  extends: ['eslint:recommended', 'airbnb-base'],
+  globals: {
+    io: false,
+    Vue: false,
+    uiv: false,
   },
-  "parserOptions": {},
-  "rules": {
-    "space-before-function-paren": ["error", "never"],
-    "func-names": 0,
-    "vars-on-top": 0,
-    "no-param-reassign": 0,
-  }
-}
+  plugins: ['import'],
+  env: {
+    browser: true,
+    es6: true,
+  },
+  parserOptions: {
+    sourceType: 'module',
+    ecmaVersion: 2020,
+  },
+  rules: {
+    'no-param-reassign': ['error', { props: false }],
+  },
+};

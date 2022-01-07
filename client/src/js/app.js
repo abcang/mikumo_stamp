@@ -1,56 +1,52 @@
-import "../css/app.sass"
+import '../css/app.sass';
 
-(function() {
+(function main() {
   function Stamp(name, max) {
     this.name = name;
     this.max = max;
     this.count = 0;
   }
 
-  Stamp.prototype.score = function(all) {
+  Stamp.prototype.score = function score(all) {
     return Math.floor((this.count * 10000) / (all || 1)) / 100;
   };
 
-  var requestAnimFrame = (function() {
-    return window.requestAnimationFrame
+  const requestAnimFrame = window.requestAnimationFrame
     || window.webkitRequestAnimationFrame
     || window.mozRequestAnimationFrame
-    || function(callback) {
-      setTimeout(callback, 1000 / 60);
-    };
-  }());
+    || ((callback) => setTimeout(callback, 1000 / 60));
 
   function scrollTo(container, option, cb) {
-    var scrollY = container.scrollTop;
-    var scrollTargetY = option.offset
+    const scrollY = container.scrollTop;
+    const scrollTargetY = option.offset
       || (option.ele && ((option.ele.offsetTop + option.ele.offsetHeight) - container.offsetHeight))
       || 0;
-    var currentTime = 0;
+    let currentTime = 0;
 
-    var time = option.time
+    const time = option.time
       || Math.max(0.1, Math.min(Math.abs(scrollY - scrollTargetY) / option.speed, 0.8));
 
-    var easingEquations = {
-      easeOutSine: function(pos) {
+    const easingEquations = {
+      easeOutSine(pos) {
         return Math.sin(pos * (Math.PI / 2));
       },
-      easeInOutSine: function(pos) {
+      easeInOutSine(pos) {
         return (-0.5 * (Math.cos(Math.PI * pos) - 1));
       },
-      easeInOutQuint: function(pos) {
-        var divPos = pos / 0.5;
+      easeInOutQuint(pos) {
+        const divPos = pos / 0.5;
         if (divPos < 1) {
-          return 0.5 * Math.pow(divPos, 5);
+          return 0.5 * divPos ** 5;
         }
-        return 0.5 * (Math.pow((divPos - 2), 5) + 2);
-      }
+        return 0.5 * ((divPos - 2) ** 5 + 2);
+      },
     };
 
     function tick() {
       currentTime += 1 / 60;
 
-      var p = currentTime / time;
-      var t = easingEquations[option.easing || 'easeInOutSine'](p);
+      const p = currentTime / time;
+      const t = easingEquations[option.easing || 'easeInOutSine'](p);
 
       if (p < 1) {
         requestAnimFrame(tick);
@@ -67,13 +63,14 @@ import "../css/app.sass"
   }
 
   function convertData(data) {
+    // eslint-disable-next-line prefer-destructuring
     data.timeText = (new Date(data.time * 1000)).toString().match(/\d+:\d+/)[0];
     return data;
   }
 
-  var socket = io('?userId=' + ((window.localStorage && window.localStorage.getItem('userId')) || 0));
+  const socket = io(`?userId=${(window.localStorage && window.localStorage.getItem('userId')) || 0}`);
 
-  var vm = new Vue({
+  const vm = new Vue({
     el: '#chat',
     data: {
       userId: null,
@@ -85,29 +82,29 @@ import "../css/app.sass"
       stampInfo: {
         anzu: new Stamp('あんず', 15),
         mikumo: new Stamp('みくも', 12),
-        conoha: new Stamp('このは', 15)
+        conoha: new Stamp('このは', 15),
       },
       showCharacter: false,
       showInfo: false,
       scrolling: false,
-      scrollInit: false
+      scrollInit: false,
     },
     methods: {
-      post: function(data) {
+      post(data) {
         data.userId = this.userId;
         socket.emit('stamp', data);
       },
-      changeType: function(type, event) {
+      changeType(type, event) {
         if (!this.visible) {
           // 表示
           this.visible = true;
           document.querySelector('.stamp-box').scrollTop = 0;
 
           // ボックスを開く時に下にフィット
-          var timeline = document.querySelector('.timeline');
-          var ele = document.querySelector('.timeline li:last-child');
-          var stampBoxHeight = 160;
-          var scrollBottom = timeline.scrollTop + timeline.offsetHeight;
+          const timeline = document.querySelector('.timeline');
+          const ele = document.querySelector('.timeline li:last-child');
+          const stampBoxHeight = 160;
+          const scrollBottom = timeline.scrollTop + timeline.offsetHeight;
           if (ele.offsetTop < scrollBottom) {
             scrollTo(timeline, { offset: (timeline.scrollHeight + stampBoxHeight), time: 0.5 });
           }
@@ -121,18 +118,18 @@ import "../css/app.sass"
         this.type = type;
         event.preventDefault();
       },
-      stampPath: function(type, num) {
-        return '/stamp/' + type + '/' + num + '.jpg';
+      stampPath(type, num) {
+        return `/stamp/${type}/${num}.jpg`;
       },
-      addStamp: function(el) {
+      addStamp(el) {
         if (!this.scrollInit) return;
 
-        var that = this;
-        var timeline = document.querySelector('.timeline');
+        const that = this;
+        const timeline = document.querySelector('.timeline');
 
         function scrollAndSlice(ele) {
-          scrollTo(timeline, { ele: ele, speed: 2000 }, function() {
-            var nextScroll = that.nextScroll;
+          scrollTo(timeline, { ele, speed: 2000 }, () => {
+            const { nextScroll } = that;
             if (nextScroll) {
               that.nextScroll = null;
               scrollAndSlice(nextScroll);
@@ -143,8 +140,8 @@ import "../css/app.sass"
           });
         }
         function shoudScroll() {
-          var prevElementOffset = el.offsetTop - el.offsetHeight;
-          var scrollBottom = timeline.scrollTop + timeline.offsetHeight;
+          const prevElementOffset = el.offsetTop - el.offsetHeight;
+          const scrollBottom = timeline.scrollTop + timeline.offsetHeight;
           return prevElementOffset < scrollBottom;
         }
 
@@ -154,35 +151,35 @@ import "../css/app.sass"
           this.scrolling = true;
           scrollAndSlice(el);
         }
-      }
-    }
+      },
+    },
   });
 
-  socket.on('init', function(data) {
+  socket.on('init', (data) => {
     vm.userId = data.userId;
     if (window.localStorage) {
       window.localStorage.setItem('userId', data.userId);
     }
-    vm.stamps = data.stamps.map(function(stamp) { return convertData(stamp); });
+    vm.stamps = data.stamps.map((stamp) => convertData(stamp));
     vm.allCount = data.allCount;
     vm.stampInfo.anzu.count = data.stampInfo.anzu;
     vm.stampInfo.mikumo.count = data.stampInfo.mikumo;
     vm.stampInfo.conoha.count = data.stampInfo.conoha;
-    Vue.nextTick(function() {
-      var timeline = document.querySelector('.timeline');
+    Vue.nextTick(() => {
+      const timeline = document.querySelector('.timeline');
       timeline.scrollTop = timeline.scrollHeight;
       vm.scrollInit = true;
     });
   });
 
-  socket.on('stamp', function(data) {
+  socket.on('stamp', (data) => {
     vm.allCount += 1;
     vm.stampInfo[data.type].count += 1;
     vm.stamps.push(convertData(data));
   });
 
-  socket.on('join', function() {
-    vm.stamps = vm.stamps.map(function(stamp) {
+  socket.on('join', () => {
+    vm.stamps = vm.stamps.map((stamp) => {
       stamp.views += 1;
       return stamp;
     });
