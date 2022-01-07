@@ -1,4 +1,4 @@
-import '../css/app.sass';
+import '../css/app.scss';
 import domready from 'domready';
 
 class Stamp {

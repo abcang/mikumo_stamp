@@ -47,7 +47,7 @@ module.exports = (env, argv) => {
           ],
         },
         {
-          test: /\.sass$/i,
+          test: /\.scss$/i,
           use: [
             MiniCssExtractPlugin.loader,
             {
