@@ -3,6 +3,8 @@
 
 [みくもスタンプ](https://stamp.mikumo.abcang.net)
 
+https://github.com/abcang/mikumo_fanclub に統合
+
 ## 必要な環境
 * Node.js v16以上
 * redis
